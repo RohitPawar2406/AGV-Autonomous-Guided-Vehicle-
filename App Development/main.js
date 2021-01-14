@@ -3,14 +3,13 @@ const express = require('express')
 const app = express()
 
 const now = new Date();
-const port =3001          // Port Number of Nodejs
+const port =3001        // Port Number of Nodejs
 
 app.use(express.json({limit:'500tb'}))
 
 
 app.post('/',async(req,res)=>{
     live_stream_images = req.body.Image
-    console.log(live_stream_images)
     console.log(typeof(req.body.Image))  
     console.log("================================================================")
     console.log("================================================================")
@@ -18,9 +17,12 @@ app.post('/',async(req,res)=>{
 })
 
 
-app.get('/showing',async(req,res)=>{
+app.get('/sending',async(req,res)=>{
 
-  res.send("Rohit Arun Pawar!!!!")
+  a=req.body
+  b={new:'1',old:'2'} 
+  console.log(a.Forward,typeof(a.Forward))
+  res.send(b)
 })
 
 app.listen(port,()=>{
