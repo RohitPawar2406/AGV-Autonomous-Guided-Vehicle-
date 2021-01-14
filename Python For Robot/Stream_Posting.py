@@ -19,7 +19,7 @@ import datetime
 # define a video capture object 
 vid = cv2.VideoCapture(0) 
 
-url = 'http://localhost:3000/'               # localhost of Nodejs script.
+url = 'http://localhost:3001/'               # localhost of Nodejs script.
   
 while(True): 
       
