@@ -3,40 +3,37 @@ const path = require('path')
 
 //const date = require('date-and-time');
 const app = express()
-const server=require('http').Server(app)
-const io= require('socket.io')(server)
+//const server=require('http').Server(app)
+//const io= require('socket.io')(server)
 const now = new Date();
-const port =5005       // Port Number of Nodejs
+const port =3000       // Port Number of Nodejs
 
 app.use(express.json({limit:'500tb'}))
+app.set('view engine','ejs')
 
-app.post('/',async(req,res)=>{
+let images_live = '' 
+
+/*app.get('/',async(req,res)=>{
+  res.render('index')
+})*/
+app.all('/',async(req,res)=>{
     live_stream_images = req.body.Image
-    console.log(typeof(req.body.Image))  
-    io.emit('image',live_stream_images)
-    console.log("================================================================")
+    images_live =live_stream_images
+    console.log(typeof(req.body.Image)) 
+    
     console.log("================================================================")
     //res.send(req.body.Image)
-    res.sendFile(path.join(__dirname,'index1.html'))
+    res.render('index')
 })
 
-
-app.get('/sending',async(req,res)=>{
+app.get('/data',async(req,res)=>{
 
   a=req.body
   b={new:'1',old:'2'} 
-  console.log(a.Forward,typeof(a.Forward))
-  res.send(b)
+  console.log(typeof(images_live))
+  res.render('stream',{data:{imageData:images_live,number:'12'}})
 })
-/*app.get('/liveonHTML',(req,res)=>{
-  res.sendFile(path.join(__dirname,'index1.html'))
-})*/
 
-/*setInterval(()=>{
-  image = 
-  io.emit('image','some data')
-},1000)*/
-
-server.listen(port,()=>{
+app.listen(port,()=>{
     console.log("Starting on port: "+port)
 })
